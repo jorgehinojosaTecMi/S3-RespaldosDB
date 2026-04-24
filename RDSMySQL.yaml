@@ -1,46 +1,54 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Description: RDS MySQL
-
-Parameters:
-  VpcId:
-    Type: String
-  PrivateSubnet:
-    Type: String
-  EC2SecurityGroup:
-    Type: String
-
+---
+Metadata:
+  AWSToolsMetrics:
+    IaC_Generator: "arn:aws:cloudformation:us-east-1:604404915865:generatedTemplate/fd7fd674-e765-406e-88c2-3965508a6982"
 Resources:
-
-  RDSSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
+  RDSDBInstance:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::RDS::DBInstance"
+    DeletionPolicy: "Retain"
     Properties:
-      GroupDescription: MySQL desde EC2
-      VpcId: !Ref VpcId
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 3306
-          ToPort: 3306
-          SourceSecurityGroupId: !Ref EC2SecurityGroup
-
-  DBSubnetGroup:
-    Type: AWS::RDS::DBSubnetGroup
-    Properties:
-      DBSubnetGroupDescription: Subnet privada
-      SubnetIds:
-        - !Ref PrivateSubnet
-
-  MyRDS:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      DBInstanceClass: db.t3.micro
-      Engine: mysql
-      AllocatedStorage: 20
-      MasterUsername: admin
-      MasterUserPassword: Admin1234!
+      DatabaseInsightsMode: "standard"
+      StorageEncrypted: true
+      AssociatedRoles: []
+      Port: "3306"
+      AdditionalStorageVolumes: []
+      ProcessorFeatures: []
+      StorageThroughput: 0
+      PreferredBackupWindow: "03:40-04:10"
+      MonitoringInterval: 0
+      DBParameterGroupName: "default.mysql8.4"
+      NetworkType: "IPV4"
+      DedicatedLogVolume: false
+      CopyTagsToSnapshot: true
+      MultiAZ: false
+      Engine: "mysql"
+      Tags: []
+      EngineLifecycleSupport: "open-source-rds-extended-support-disabled"
+      LicenseModel: "general-public-license"
+      EngineVersion: "8.4.8"
+      StorageType: "gp2"
+      KmsKeyId: "arn:aws:kms:us-east-1:604404915865:key/e5e2e2e8-cb31-4572-8e42-1404142af42b"
+      DBInstanceClass: "db.t4g.micro"
+      AvailabilityZone: "us-east-1a"
+      OptionGroupName: "default:mysql-8-4"
+      PreferredMaintenanceWindow: "wed:05:02-wed:05:32"
+      EnablePerformanceInsights: false
+      AutoMinorVersionUpgrade: true
+      DBSubnetGroupName: "default-vpc-068d3894a81d0576d"
+      DeletionProtection: false
+      DBInstanceIdentifier: "database-1"
+      AllocatedStorage: "20"
+      BackupTarget: "region"
+      CACertificateIdentifier: "rds-ca-ecc384-g1"
+      ManageMasterUserPassword: false
+      MasterUserSecret: {}
       VPCSecurityGroups:
-        - !Ref RDSSecurityGroup
-      DBSubnetGroupName: !Ref DBSubnetGroup
-
-Outputs:
-  RDSEndpoint:
-    Value: !GetAtt MyRDS.Endpoint.Address
+      - "sg-038622d428e9217ea"
+      DBSecurityGroups: []
+      MasterUsername: "admin"
+      MaxAllocatedStorage: 1000
+      EnableIAMDatabaseAuthentication: false
+      PubliclyAccessible: false
+      BackupRetentionPeriod: 1
+      EnableCloudwatchLogsExports: []
