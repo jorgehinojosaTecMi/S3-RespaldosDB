@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS transporte_lab;
 USE transporte_lab;
 
 -- Tabla de clientes
-CREATE TABLE clientes (
+CREATE TABLE IF NOT EXISTS clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     email VARCHAR(100),
@@ -12,7 +12,7 @@ CREATE TABLE clientes (
 );
 
 -- Tabla de vehículos
-CREATE TABLE vehiculos (
+CREATE TABLE IF NOT EXISTS vehiculos (
     id_vehiculo INT AUTO_INCREMENT PRIMARY KEY,
     tipo VARCHAR(50),
     placa VARCHAR(20),
@@ -21,7 +21,7 @@ CREATE TABLE vehiculos (
 );
 
 -- Tabla de rutas
-CREATE TABLE rutas (
+CREATE TABLE IF NOT EXISTS rutas (
     id_ruta INT AUTO_INCREMENT PRIMARY KEY,
     origen VARCHAR(100),
     destino VARCHAR(100),
@@ -29,7 +29,7 @@ CREATE TABLE rutas (
 );
 
 -- Tabla de envíos
-CREATE TABLE envios (
+CREATE TABLE IF NOT EXISTS envios (
     id_envio INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT,
     id_vehiculo INT,
