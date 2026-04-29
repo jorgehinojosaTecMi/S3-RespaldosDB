@@ -118,8 +118,9 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
-          yum update -y
-          yum install -y mysql aws-cli
+          sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-7.noarch.rpm
+          sudo yum install mysql-community-client -y --nogpgcheck
+
 
 # ---------------- RDS ----------------
   DBSubnetGroup:
